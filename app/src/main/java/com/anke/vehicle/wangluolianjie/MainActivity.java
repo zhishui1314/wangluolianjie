@@ -1,12 +1,16 @@
 package com.anke.vehicle.wangluolianjie;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.net.ConnectivityManager;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
+import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,13 +34,12 @@ Handler handler = new Handler(){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tv = (TextView) findViewById(R.id.tv);
-         // register();
-        startService(new Intent(this,MyService.class));
+         // register();//动态在mainactivity中注册
+        startService(new Intent(this,MyService.class));//在后台服务中监控
         MyService.handler = handler;
 
 
     }
-
     private void register() {
         MyReceiver myReceiver = new MyReceiver();
         IntentFilter filter = new IntentFilter();
